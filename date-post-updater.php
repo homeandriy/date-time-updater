@@ -9,7 +9,7 @@
  * that starts the plugin.
  *
  * @link              https://webbooks.com.ua/portfolio
- * @since             1.0.0
+ * @since             1.0.1
  * @package           Date_Post_Updater
  *
  * @wordpress-plugin
@@ -23,6 +23,10 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       date-post-updater
  * Domain Path:       /languages
+ * Network:           true
+ * GitHub Plugin URI: https://github.com/homeandriy/date-time-updater
+ * Requires PHP:      7.2
+ * Requires at least: 5.2
  */
 
 // If this file is called directly, abort.
@@ -35,7 +39,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'DATE_POST_UPDATER_VERSION', '1.0.0' );
+define( 'DATE_POST_UPDATER_VERSION', '1.0.1' );
 
 /**
  * The code that runs during plugin activation.
