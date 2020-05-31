@@ -78,7 +78,6 @@ class Date_Post_Updater {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -121,6 +120,15 @@ class Date_Post_Updater {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-date-post-updater-public.php';
+		/**
+		 * Cron
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-kama-cron.php';
+		/**
+		 * Sheduller
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-post-updater-script.php';
+
 
 		$this->loader = new Date_Post_Updater_Loader();
 
@@ -156,6 +164,8 @@ class Date_Post_Updater {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_menu' );
+		$this->loader->add_action('init', $plugin_admin, 'register_cron');
 
 	}
 

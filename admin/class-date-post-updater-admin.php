@@ -27,7 +27,7 @@ class Date_Post_Updater_Admin {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string $plugin_name The ID of this plugin.
 	 */
 	private $plugin_name;
 
@@ -36,21 +36,22 @@ class Date_Post_Updater_Admin {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @var      string $version The current version of this plugin.
 	 */
 	private $version;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
+	 * @param string $plugin_name The name of this plugin.
+	 * @param string $version The version of this plugin.
+	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 
@@ -78,6 +79,29 @@ class Date_Post_Updater_Admin {
 	}
 
 	/**
+	 * Register menu
+	 */
+	public function register_menu() {
+		add_menu_page(
+			'Post Date Updater',
+			'Post Date Updater',
+			'manage_options',
+			'post-date-pdater',
+			[ $this, 'admin_menu_view' ],
+			'dashicons-arrow-right-alt',
+			7
+		);
+	}
+
+	public function admin_menu_view() {
+		ob_start();
+		include_once DATE_POST_UPDATER_PATH . '/admin/partials/date-post-updater-admin-display.php';
+		$content = ob_get_contents();
+		ob_clean();
+		echo $content;
+	}
+
+	/**
 	 * Register the JavaScript for the admin area.
 	 *
 	 * @since    1.0.0
@@ -98,6 +122,14 @@ class Date_Post_Updater_Admin {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/date-post-updater-admin.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	/**
+	 * Register cron events
+	 */
+	public function register_cron() {
+		$config = require_once DATE_POST_UPDATER_PATH . 'config/cron-config.php';
+		new Kama_Cron( $config );
 	}
 
 }
