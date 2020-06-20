@@ -33,7 +33,6 @@ class Post_Updater_Script {
 	public function __construct() {
 		$config = get_option( self::CONFIG_META_KEY );
 		$date   = date( 'Y-m-d H:i:s', strtotime( '-1 day', time() ) );
-		error_log( $date );
 		$this->config = ! is_array( $config ) ?
 			[
 				'is_worked' => self::IS_WORKED,
@@ -81,14 +80,17 @@ class Post_Updater_Script {
 			 *
 			 * @var WP_Post $finded_post
 			 */
-			error_log( 'Title : ' . $finded_post->post_title );
-			error_log( 'Date : ' . $this->get_random_date( date( 'Y-m-d H:i:s' ), $this->min_date ) );
+			$new_date = $this->get_random_date( date( 'Y-m-d H:i:s' ), $this->min_date );
 			$diff = date( 'G', strtotime( strtotime( $finded_post->post_date_gmt ) - strtotime( $finded_post->post_date ) ) );
-			error_log( 'Hour diff : ' . $diff );
-			error_log( 'Post publish : ' . $finded_post->post_date );
 			$add_string   = "+" . $diff . " hours";
-			$new_date_gmt = date( 'Y-m-d H:i:s', strtotime( $add_string, strtotime( $finded_post->post_date ) ) );
-			error_log( 'New date : ' . $new_date_gmt );
+			$new_date_gmt = date( 'Y-m-d H:i:s', strtotime( $add_string, strtotime( $new_date ) ) );
+			wp_update_post([
+				'ID' => $finded_post->ID,
+				'post_date' => $new_date,
+				'post_date_gmt' => $new_date_gmt,
+				'post_modified' => $new_date,
+				'post_modified_gmt' => $new_date_gmt
+			]);
 		}
 	}
 

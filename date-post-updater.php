@@ -9,7 +9,7 @@
  * that starts the plugin.
  *
  * @link              https://webbooks.com.ua/portfolio
- * @since             1.0.2
+ * @since             1.0.3
  * @package           Date_Post_Updater
  *
  * @wordpress-plugin
@@ -39,7 +39,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'DATE_POST_UPDATER_VERSION', '1.0.2' );
+define( 'DATE_POST_UPDATER_VERSION', '1.0.3' );
 define( 'DATE_POST_UPDATER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'DATE_POST_UPDATER_URL', plugin_dir_url( __FILE__ ) );
 

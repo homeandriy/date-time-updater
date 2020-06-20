@@ -1,13 +1,12 @@
 <?php
 
 return [
-	'id'     => 'my_cron_jobs', // не обязательный параметр
+	'id'     => 'my_cron_jobs',
 	'events' => array(
-		// первая задача
 		'DPU_update_post_date' => array(
 			'callback'      => [ Post_Updater_Script::class, 'cron_tasks' ],
-			'interval_name' => '1_min',
-			'interval_desc' => 'Каждые 1 минут',
+			'interval_name' => '90_min',
+			'interval_desc' => 'Каждые 90 минут',
 		),
 	),
 ];
